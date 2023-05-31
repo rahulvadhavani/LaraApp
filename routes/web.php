@@ -1,6 +1,9 @@
 <?php
 
-use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\AdminHomeController;
+use App\Http\Controllers\Admin\PostController;
+use App\Http\Controllers\Admin\UserController;
+use App\Http\Controllers\UserPostController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -19,10 +22,19 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::group(['middleware' => ['auth']], function(){
-    Route::resource('categories', CategoryController::class);
-});
-
 Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+Route::group(['prefix' => 'admin','as' => 'admin'], function () {
+    Auth::routes(['register' => false]);
+});
+
+Route::group(['middleware' => ['auth','admin'], 'prefix' => 'admin','as' => 'admin.'], function () {
+    Route::get('home', [AdminHomeController::class, 'index'])->name('home');
+    Route::resource('users', UserController::class);
+    Route::resource('posts', PostController::class);
+});
+
+Route::group(['middleware' => ['auth']], function () {
+    Route::resource('posts', UserPostController::class);
+});

@@ -64,7 +64,10 @@
                         @endif
                         @else
                         <li class="nav-item">
-                            <a class="nav-link {{request()->is('posts.*') ?'active' : ''}}" href="{{ route('posts.index') }}">Post</a>
+                            <a class="nav-link {{request()->is('admin/users*') ?'active' : ''}}" href="{{ route('admin.users.index') }}">User</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link {{request()->is('admin/posts*') ?'active' : ''}}" href="{{ route('admin.posts.index') }}">Post</a>
                         </li>
                         <li class="nav-item dropdown">
                             <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
