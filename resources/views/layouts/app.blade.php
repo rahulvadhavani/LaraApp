@@ -11,8 +11,23 @@
     <title>{{ config('app.name', 'Laravel') }}</title>
 
     <!-- Fonts -->
-    @include('layouts.header')
-
+    <link rel="dns-prefetch" href="//fonts.bunny.net">
+    <link href="https://fonts.bunny.net/css?family=Nunito" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.0/jquery.min.js" referrerpolicy="no-referrer"></script>
+    <!-- Scripts -->
+    @vite(['resources/sass/app.scss', 'resources/js/app.js'])
+    <style>
+        .btn-circle {
+            width: 33px;
+            height: 33px;
+            border-radius: 50%;
+            padding: 7px;
+            display: inline-block;
+            align-items: center;
+            justify-content: center;
+        }
+    </style>
 
 </head>
 
@@ -50,7 +65,7 @@
                         @endif
                         @else
                         <li class="nav-item">
-                            <a class="nav-link {{request()->is('users*') ?'active' : ''}}" href="{{ route('users.index') }}">User</a>
+                            <a class="nav-link {{request()->is('categories.*') ?'active' : ''}}" href="{{ route('categories.index') }}">Category</a>
                         </li>
                         <li class="nav-item dropdown">
                             <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
@@ -78,7 +93,7 @@
             @yield('content')
         </main>
     </div>
-    @include('layouts.footer')
+    @stack('script')
 </body>
 
 </html>
