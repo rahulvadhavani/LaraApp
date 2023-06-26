@@ -12,6 +12,14 @@ class User extends Authenticatable
 {
     use HasApiTokens, HasFactory, Notifiable;
 
+    use HasApiTokens, HasFactory, Notifiable;
+
+    const ROLEADMIN = 'admin';
+    const STORAGE_PATH = "/app/public/uplaods/images/user/";
+    const UPLOAD_PATH = "public/uplaods/images/user";
+    const LINK_PATH = "storage/uplaods/images/user/";
+
+
     /**
      * The attributes that are mass assignable.
      *
@@ -21,6 +29,9 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
+        'first_name',
+        'last_name',
+        'image',
     ];
 
     /**
@@ -42,4 +53,25 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
         'password' => 'hashed',
     ];
+
+    public function getNameAttribute($val)
+    {
+        return $val == null ? $this->first_name . " " . $this->last_name : $val;
+    }
+
+    public function setFirstNameAttribute($val)
+    {
+        $this->attributes['first_name'] = $val;
+        $this->attributes['name'] = $val;
+    }
+
+    public function getImageAttribute($val)
+    {
+        return $val == null ? asset('assets/images/dummy.png') : asset(self::LINK_PATH . $val);
+    }
+
+    public function scopeUserRole($query)
+    {
+        return $query->where('role', '!=', self::ROLEADMIN);
+    }
 }
