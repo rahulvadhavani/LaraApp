@@ -6,6 +6,5 @@
 - npm run dev
 - php artisan serve
 - default login 
-
-email: admin@admin.com
-password : 12345678  
+-- email: admin@admin.com
+-- password : 12345678  
