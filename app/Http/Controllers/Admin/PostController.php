@@ -8,16 +8,16 @@ use App\Models\Post;
 
 class PostController extends Controller
 {
-   
+
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
         $module = 'Posts';
-        $posts = Post::with('user')->orderBy('id', 'desc')->paginate(5);
+        $posts = Post::with('user')->orderBy('id', 'desc')->paginate(10);
         return view('admin.post.index', compact('posts', 'module'))
-            ->with('i', (request()->input('page', 1) - 1) * 5);
+            ->with('i', (request()->input('page', 1) - 1) * 10);
     }
 
     /**
@@ -73,7 +73,7 @@ class PostController extends Controller
     {
         $data = $request->validated();
         unset($data['id']);
-        if($request->password == null){
+        if ($request->password == null) {
             unset($data['password']);
         }
         if ($request->hasFile('image')) {

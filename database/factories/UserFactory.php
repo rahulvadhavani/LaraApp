@@ -17,12 +17,17 @@ class UserFactory extends Factory
      */
     public function definition(): array
     {
+        $perm = ["create","update","view","delete"];
         return [
             'name' => fake()->name(),
+            'first_name' => fake()->firstName(),
+            'last_name' => fake()->lastName(),
             'email' => fake()->unique()->safeEmail(),
             'email_verified_at' => now(),
+            'image' => fake()->image(storage_path('app/public/uplaods/images/user/'),250,250,null,false),
             'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', // password
             'remember_token' => Str::random(10),
+            'permissions' => $perm,
         ];
     }
 

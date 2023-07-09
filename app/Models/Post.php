@@ -4,10 +4,11 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Post extends Model
 {
-    use HasFactory;
+    use HasFactory,SoftDeletes;
 
     const STORAGE_PATH = "/app/public/uplaods/images/post/";
     const UPLOAD_PATH = "public/uplaods/images/post";

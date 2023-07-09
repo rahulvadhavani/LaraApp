@@ -21,6 +21,7 @@ class PostCreateRequest extends FormRequest
      */
     public function rules(): array
     {
+        $postId = request()->id;
         $rulesArr = [
             'id'     =>  ['required'],
             'title'     =>  ['required', 'string', 'max:255'],
