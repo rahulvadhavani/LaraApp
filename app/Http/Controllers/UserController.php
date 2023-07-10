@@ -21,7 +21,7 @@ class UserController extends Controller
     public function index(Request $request)
     {
         if ($request->ajax()) {
-            $baseurl = url('users');
+            $baseurl = route('users.index');
             $data = User::userRole();
             if ($request->order == null) {
                 $data->orderBy('created_at', 'desc');
@@ -29,10 +29,10 @@ class UserController extends Controller
             return DataTables::of($data)
                 ->addIndexColumn()
                 ->addColumn('actions', function ($row) use ($baseurl) {
-                    $url = "<div class='actions-a'>
-                <a class='btn-circle btn btn-dark btn-sm module_view_record' data-id='" . $row->id . "' data-url='" . $baseurl . "' title='View'><i class='text-info fas fa-eye'></i></a>
-                <a class='btn-circle btn btn-dark btn-sm module_edit_record' data-id='" . $row->id . "' data-url='" . $baseurl . "' title='Edit'><i class='text-warning far fa-edit'></i></a>
-                <a class='btn-circle btn btn-dark btn-sm module_delete_record' data-id='" . $row->id . "' data-url='" . $baseurl . "' title='Delete'><i class='text-danger far fa-trash-alt'></i></a>
+                    $url = "<div class='actions-a' data-id='" . $row->id . "' data-url='" . $baseurl . "'>
+                <a class='btn-circle btn btn-dark btn-sm module_view_record' title='View'><i class='text-info fas fa-eye'></i></a>
+                <a class='btn-circle btn btn-dark btn-sm module_edit_record' title='Edit'><i class='text-warning far fa-edit'></i></a>
+                <a class='btn-circle btn btn-dark btn-sm module_delete_record' title='Delete'><i class='text-danger far fa-trash-alt'></i></a>
                 </div>";
                     return $url;
                 })
@@ -56,7 +56,8 @@ class UserController extends Controller
     public function store(UserRequest $request)
     {
         try {
-            $postData = $request->only('first_name', 'last_name', 'name', 'image', 'password', 'id', 'email');
+            $postData = $request->validated();
+            unset($postData['password_confirmation']);
             $user = User::where('id', $postData['id'])->first();
             if ($request->hasFile('image')) {
                 $imagePath = $request->file('image')->store(User::UPLOAD_PATH);

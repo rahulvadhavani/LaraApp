@@ -44,11 +44,7 @@ function deleteRecordModule(id, url) {
         success: function (response) {
           if (response.status) {
             $('#data_table_main').DataTable().ajax.reload();
-            Swal.fire(
-              'Deleted!',
-              response.message,
-              'success'
-            )
+            toastr.success(response.message);
           } else {
             Swal.fire(
               'error!',

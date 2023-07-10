@@ -24,7 +24,8 @@ class UserFactory extends Factory
             'role' => 'user',
             'email' => fake()->unique()->safeEmail(),
             'email_verified_at' => now(),
-            'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', // password
+            'image' => fake()->image(storage_path('app/public/uplaods/images/user/'), 250, 250, null, false),
+            'password' => bcrypt('password'), // password
             'remember_token' => Str::random(10),
         ];
     }

@@ -53,8 +53,8 @@
 
     // View user
     $(document).on('click', '.module_view_record', function() {
-      const id = $(this).data("id");
-      const url = $(this).data("url");
+      const id = $(this).parent().data("id");
+      const url = $(this).parent().data("url");
       $("#view_user_modal").modal('show');
       $("#view_user_modal .loader").addClass('d-flex');
       $.ajax({
@@ -90,15 +90,15 @@
 
     // delete user
     $(document).on('click', '.module_delete_record', function() {
-      const id = $(this).data("id");
-      const url = $(this).data("url");
+      const id = $(this).parent().data("id");
+      const url = $(this).parent().data("url");
       deleteRecordModule(id, `${url}/${id}`);
     });
 
     // edit user
     $(document).on('click', '.module_edit_record', function() {
-      const id = $(this).data("id");
-      const url = $(this).data("url");
+      const id = $(this).parent().data("id");
+      const url = $(this).parent().data("url");
       $("#modal-add-update").modal('show');
       $('#image_preview').attr("");
       $.ajax({
